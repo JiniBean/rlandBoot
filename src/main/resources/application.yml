@@ -1,0 +1,11 @@
+# 부트를 쓰기 때문에 있는 설정공간
+
+spring:
+  profiles:
+    active:
+      - dev
+  output:
+    ansi:
+      enabled: always
+# server:
+#   port: 80

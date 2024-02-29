@@ -1,0 +1,32 @@
+#개발용
+# spring:
+#   servlet:
+#     multipart:
+#       max-file-size: 100MB #파일 최대 용량
+#       max-request-size: 200MB #받을 파일 용량
+server:
+  port: 8080
+
+spring:
+  #DB datasource
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    url:
+    username: 
+    password: 
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+  mapper-locations: mappers/*Mapper.xml
+  type-aliases-package: kr.co.rland.web.entity
+
+logging:
+  level:
+    kr:
+      co:
+        rland:
+          web:
+            repository: TRACE
+    
+  
