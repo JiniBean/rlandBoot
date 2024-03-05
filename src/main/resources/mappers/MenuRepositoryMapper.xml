@@ -1,37 +1,58 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper
-  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="kr.co.rland.web.repository.MenuRepository">
+<?xml version="1.0" encoding="UTF-8"?>
 
-	<!-- <resultMap id="menuMap" type="kr.co.rland.web.entity.Menu">
-		<result property="korName" column="KOR_NAME"/>
-		<result property="engName" column="ENG_NAME"/>
-		<result property="regDate" column="REG_DATE"/>
-	</resultMap> -->
-	
-  <select id="findAll" resultType="MenuView">
-    select
-		*
-    from menu_view
-    <where>
-      <if test="categoryID != null">
-        category_id = #{categoryID}
-      </if>
-    </where>
-  </select>
-  
-  <select id="findAllByCategory" resultType="MenuView" >
-    select
-		*
-    from menu_view
-    
-  </select>
-  
-  <select id="findById" resultType="Menu">
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- <mapper namespace="menu"> -->
+<mapper namespace="kr.co.rland.web.repository.MenuRepository"> <!-- 구현하고자 하는 패키지 경로 작성 -->
+
+    <!-- <resultMap id="menuMap" type="com.example.demo.entity.Menu">
+        <result property="korName" column="kor_name" />
+        <result property="engName" column="eng_name" />
+    </resultMap> -->
+
+    <select id="findAll" resultType="MenuView">
+        select
+        *
+        from menu_view
+        <where>
+            <if test="categoryId != null">
+                and category_id = #{categoryId}
+            </if>
+            <if test="query != null">
+                and kor_name like '%${query}%'
+            </if>
+        </where>
+        limit #{offset}, #{size}
+    </select>
+
+    <!-- <select id="findAllByCategory" resultType="MenuView" >
       select
- 		*
-      from menu
-      WHERE id=#{id}
-   </select>
-</mapper>
+          *
+      from menu_view
+      where category_id = #{id}
+    </select> -->
+    <select id="findById" resultType="MenuView">
+        select
+        *
+        from menu_view
+        WHERE id=#{id}
+    </select>
+
+    <insert id="save">
+        insert into menu (kor_name, eng_name, price, img, category_id)
+        values ( #{korName}, #{engName}, #{price}, #{img}, #{categoryId})
+    </insert>
+
+    <update id="update">
+        update menu set
+            kor_name = #{korName},
+            eng_name = #{engName},
+            price =#{price},
+            img=#{img},
+            category_id = #{categoryId}
+        where id = #{id}
+    </update>
+
+
+</mapper> 

@@ -10,14 +10,17 @@ import kr.co.rland.web.entity.MenuView;
 public interface MenuRepository {
 
     // @Select("select * from menu")
-    List<MenuView> findAll(Long categoryID);
+    List<MenuView> findAll(Integer size, Integer offset, Long categoryId, String query);
 
-    Menu findByID(Long id);
+    MenuView findById(Long menuId);
+
     List<MenuView> findAllByName(String name);
-    
-    void save(Menu menu);
-    void update(Menu menu);
-    void delete(Long id);
 
-    // List<MenuView> findAllByCategory(long id);
+    List<MenuView> findAllByCategory(long id);
+
+    void save(Menu menu);
+
+    void update(Menu menu);
+
+    void delete(int id);
 }

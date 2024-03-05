@@ -15,40 +15,56 @@ public class MenuServiceImp implements MenuService {
     @Autowired
     private MenuRepository repository;
 
+    private int size = 9;
+
     @Override
-    public List<MenuView> getList() {
-
-        List<MenuView> list = repository.findAll(null);
-
+    public List<MenuView> getList(Integer page) {
+        int offset = (page-1) * size;
+        List<MenuView> list = repository.findAll(size, offset, null, null);
         return list;
     }
 
     @Override
-    public List<MenuView> getList(Long categoryID) {
-
-        List<MenuView> list = repository.findAll(categoryID);
-
+    public List<MenuView> getList(Integer page, Long id) {
+        int offset = (page-1) * size;
+        List<MenuView> list = repository.findAll(size, offset, id, null);
         return list;
     }
-    
-    
+
     @Override
-    public Menu getMenu(long id) {
-        Menu menu = repository.findByID(id);
+    public List<MenuView> getList(Integer page, String query) {
+        int offset = (page-1) * size;
+        List<MenuView> list = repository.findAll(size, offset, null, query);
+        return list;
+    }
+
+    @Override
+    public List<MenuView> getList(Integer page, Long id, String query) {
+        int offset = (page-1) * size;
+        List<MenuView> list = repository.findAll(size, offset, id, query);
+        return list;
+    }
+
+    @Override
+    public List<MenuView> getList(Integer page, Integer offset, Long id, String query) {
+        List<MenuView> list = repository.findAll(page, offset, id, query);
+        return list;
+    }
+
+    @Override
+    public MenuView get(Long menuId) {
+        MenuView menu = repository.findById(menuId);
         return menu;
     }
-    
+
     @Override
     public void reg(Menu menu) {
-        throw new UnsupportedOperationException("Unimplemented method 'reg'");
-        
+        repository.save(menu);
     }
-    
-    // @Override
-    // public List<MenuView> getListByCategory(long id) {
-        
-    //     List<MenuView> list = repository.findAllByCategory(id);
 
-    //     return list;
-    // }
+    @Override
+    public void update(Menu menu) {
+        repository.update(menu);
+    }
+
 }

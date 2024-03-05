@@ -27,34 +27,67 @@ public class MenuController {
     @Autowired
     private CategoryService categoryService;
 
-    @GetMapping("list")
-    public String list(@RequestParam(name = "c", required = false) Long categoryID, Model model){
-        List<MenuView> menus = service.getList(categoryID);
-        
+    @GetMapping("/list")
+    public String list(
+              @RequestParam(name = "c", required = false) Long categoryId
+            , @RequestParam(name = "q", required = false) String query
+            , @RequestParam(name = "p", required = false, defaultValue = "1") Integer page
+            , @RequestParam(name = "s", required = false) Integer size
+            , Model model)
+    {
+        System.out.println("recived categoryId = " + categoryId);
+        System.out.println("recived page number = " + page);
+
         List<Category> categories = categoryService.getList();
-        
-        model.addAttribute("menus", menus);
+
+        List<MenuView> list = new ArrayList<>();
+        if(categoryId != null && query != null)
+            list = service.getList(page, categoryId, query);
+        else if(categoryId != null)
+            list = service.getList(page, categoryId);
+        else if (query != null)
+            list = service.getList(page, query);
+        else
+            list = service.getList(page);
+
+        model.addAttribute("list", list);
         model.addAttribute("categories", categories);
-        
+
         return "menu/list";
     }
 
-
     @GetMapping("detail")
-    public String detail(@RequestParam("id") String m, Model model){
+    public String detail(@RequestParam(value = "id") Long menuId, Model model) {
 
-        long id = Integer.parseInt(m);
-        Menu menu = service.getMenu(id);
+        MenuView menu = service.get(menuId);
+        System.out.println(menu.toString());
         model.addAttribute("menu", menu);
-
         return "menu/detail";
     }
 
-    // public String reg(Menu menu){
+    @GetMapping("reg")
+    public String reg() {
+        return "menu/reg";
+    }
 
-    //     service.reg(menu);
+    @PostMapping("reg")
+    public String reg(Menu menu) {
+        service.reg(menu);
+        System.out.println(menu.toString());
+        return "redirect:/menu/list";
+    }
 
-    //     return Redirect:menu/list;
+    @GetMapping("edit")
+    public String edit() {
 
-    // }
+
+        return "menu/edit";
+    }
+
+    @PostMapping("edit")
+    public String edit(Menu menu) {
+        service.update(menu);
+        System.out.println(menu.toString());
+        return "redirect:/menu/list";
+    }
 }
