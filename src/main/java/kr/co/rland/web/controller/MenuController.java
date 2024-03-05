@@ -78,9 +78,10 @@ public class MenuController {
     }
 
     @GetMapping("edit")
-    public String edit() {
-
-
+    public String edit(@RequestParam(value = "id") Long menuId, Model model) {
+        MenuView menu = service.get(menuId);
+        System.out.println("edit"+menu.toString());
+        model.addAttribute("menu", menu);
         return "menu/edit";
     }
 

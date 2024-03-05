@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -10,24 +10,28 @@
         <fieldset>
             <legend>메뉴정보</legend>
             <div>
+                <label>상품번호</label>
+                <input type="text" name="id" th:value="${menu.id}" >
+            </div>
+            <div>
                 <label>한글이름</label>
-                <input type="text" name="korName" value="${menu.korName}" >
+                <input type="text" name="korName" th:value="${menu.korName}" >
             </div>
             <div>
                 <label>영어이름</label>
-                <input type="text"name="engName" value="${menu.engName}">
+                <input type="text"name="engName" th:value="${menu.engName}">
             </div>
             <div>
                 <label>가격</label>
-                <input type="text" name="price" value="${menu.price}">
+                <input type="text" name="price" th:value="${menu.price}">
             </div>
             <div>
                 <label>이미지</label>
-                <input type="input" name="img" value="${menu.img}">
+                <input type="input" name="img" th:value="${menu.img}">
             </div>        
             <div>
                 <label>분류</label>
-                <input type="text" name="categoryId" value="${menu.categoryId}">
+                <input type="text" name="categoryId" th:value="${menu.categoryId}">
             </div>
         </fieldset>
         <div>

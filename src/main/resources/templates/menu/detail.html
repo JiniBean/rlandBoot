@@ -45,15 +45,17 @@
     <main>
         <section class="menu-detail">
             <h1 class="d:none">메뉴 상세 정보</h1>
-            <section th:each = "m : ${menu}"class="menu-block" >
-                <h1 th:text = ${m.korName} class="heading-6 mt:4 grid-column:2">카페라떼</h1>
-                <h2 th:text = ${m.engName} class="heading-3 color:base-4 mt:1">Cafe Latte</h2>
+            <section class="menu-block" >
+                <h2 th:text = ${menu.id} class="heading-3 color:base-4 mt:1">아이디</h2>
+                <h1 th:text = ${menu.korName} class="heading-6 mt:4 grid-column:2">카페라떼</h1>
+                <h2 th:text = ${menu.engName} class="heading-3 color:base-4 mt:1">Cafe Latte</h2>
+                
                 <div class="img-block"><img src="/image/menu/product/10.jpg"></div>
                 <p class="description-block mt:2 mh:4">
                     알랜드만의 로스팅 기법으로 볶은 원두를 사용하여 
 추출된 풍부한 에스프레소와 신선한 우유가 어우러진 대표 라떼
                 </p>
-                <div th:text = ${m.price} class="price-block heading-3 mt:2">4,500원</div>
+                <div th:text = ${menu.price} class="price-block heading-3 mt:2">4,500원</div>
                 <form>
                     <fieldset class="size-block">
                         <legend class="heading-3 text-align:left">사이즈</legend>
@@ -85,8 +87,8 @@
             </section>
             <section class="d:flex" style="justify-content: center; align-items: center;">
                 <div class="mv:4 text-align:center">
-                    <a class="btn btn-size:2 btn-radius:3 md:btn-radius:0" th:href="@{edit(id=${m.id})}">수정</a>
-                    <a class="btn btn-main btn-size:2 btn-radius:3 md:btn-radius:0" th:href="@{delete(id=${m.id})}">삭제</a>
+                    <a class="btn btn-size:2 btn-radius:3 md:btn-radius:0" th:href="@{edit( id=${menu.id} ) }">수정</a>
+                    <a class="btn btn-size:2 btn-radius:3 md:btn-radius:0" th:href="@{delete (id=${menu.id} ) }">삭제</a>
                 </div>
             </section>
             
