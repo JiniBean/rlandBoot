@@ -11,6 +11,7 @@ public interface MenuRepository {
 
     // @Select("select * from menu")
     List<MenuView> findAll(Integer size, Integer offset, Long categoryId, String query);
+    int count(Long categoryId, String query);
 
     MenuView findById(Long menuId);
 

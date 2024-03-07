@@ -15,7 +15,7 @@ public class MenuServiceImp implements MenuService {
     @Autowired
     private MenuRepository repository;
 
-    private int size = 9;
+    private int size = 6;
 
     @Override
     public List<MenuView> getList(Integer page) {
@@ -49,6 +49,31 @@ public class MenuServiceImp implements MenuService {
     public List<MenuView> getList(Integer page, Integer offset, Long id, String query) {
         List<MenuView> list = repository.findAll(page, offset, id, query);
         return list;
+    }
+
+    
+    @Override
+    public int count() {
+       int count = repository.count(null, null);
+        return count;
+    }
+
+    @Override
+    public int count(Long categoryId) {
+        int count = repository.count(categoryId, null);
+        return count;
+    }
+
+    @Override
+    public int count(String query) {
+        int count = repository.count(null, query);
+        return count;
+    }
+
+    @Override
+    public int count(Long categoryId, String query) {
+        int count = repository.count(categoryId, query);
+        return count;
     }
 
     @Override

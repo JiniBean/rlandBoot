@@ -41,17 +41,29 @@ public class MenuController {
         List<Category> categories = categoryService.getList();
 
         List<MenuView> list = new ArrayList<>();
-        if(categoryId != null && query != null)
+        int count =0 ;
+
+        if(categoryId != null && query != null){
             list = service.getList(page, categoryId, query);
-        else if(categoryId != null)
+            count = service.count(categoryId, query);
+        }
+        else if(categoryId != null){
             list = service.getList(page, categoryId);
-        else if (query != null)
+            count = service.count(categoryId);
+        }
+        else if (query != null){
             list = service.getList(page, query);
-        else
+            count = service.count(query);
+        }
+        else{
             list = service.getList(page);
+            count = service.count();
+            
+        }
 
         model.addAttribute("list", list);
         model.addAttribute("categories", categories);
+        model.addAttribute("count", count);
 
         return "menu/list";
     }
