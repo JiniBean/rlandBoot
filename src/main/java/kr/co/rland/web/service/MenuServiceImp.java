@@ -53,32 +53,32 @@ public class MenuServiceImp implements MenuService {
 
     
     @Override
-    public int count() {
+    public int getCount() {
        int count = repository.count(null, null);
         return count;
     }
 
     @Override
-    public int count(Long categoryId) {
+    public int getCount(Long categoryId) {
         int count = repository.count(categoryId, null);
         return count;
     }
 
     @Override
-    public int count(String query) {
+    public int getCount(String query) {
         int count = repository.count(null, query);
         return count;
     }
 
     @Override
-    public int count(Long categoryId, String query) {
+    public int getCount(Long categoryId, String query) {
         int count = repository.count(categoryId, query);
         return count;
     }
 
     @Override
-    public MenuView get(Long menuId) {
-        MenuView menu = repository.findById(menuId);
+    public Menu getById(Long menuId) {
+        Menu menu = repository.findById(menuId);
         return menu;
     }
 

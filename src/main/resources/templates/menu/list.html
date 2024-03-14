@@ -2,8 +2,7 @@
 <html lang="ko"
     xmlns:th="http://www.thymeleaf.org"
     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-    layout:decorate="inc/layout"
->
+    layout:decorate="inc/layout">
 <head>
     <link href="/css/components/menu/card.css" rel="stylesheet" type="text/css">
     <link href="/css/components/menu/menu-filter.css" rel="stylesheet" type="text/css">
@@ -78,12 +77,17 @@
                                 <a class="icon icon-heart-fill icon-color:base-4" href="">좋아요</a>
                                 <span class="font-weight:bold ml:1" th:text="${m.likeCount}">2</span>
                             </div>
-                            <div class="pay-block d:flex">
+                            <form  class="pay-block d:flex" action="/cart/add-menu" method="post">
+                                <input type="hidden" name="id" th:value="${m.id}">
+                                <button class="icon md:icon:none icon-cart icon-color:base-0 color:base-0 btn-type:icon btn-cart md:btn-type:text">담기</button>
+                                <button class="icon md:icon:none icon-card icon-color:base-0 color:base-0 btn-type:icon btn-card md:btn-type:text"> 주문하기</button>
+                            </form>
+                            <!-- <div class="pay-block d:flex">
                                 <a class="icon md:icon:none icon-cart icon-color:base-0 color:base-0 btn-type:icon btn-cart md:btn-type:text"
                                 href="">담기</a>
                                 <a class="icon md:icon:none icon-card icon-color:base-0 color:base-0 btn-type:icon btn-card md:btn-type:text"
                                 href="">주문하기</a>
-                            </div>
+                            </div> -->
                         </section>
 
                     </div>

@@ -13,7 +13,7 @@ public interface MenuRepository {
     List<MenuView> findAll(Integer size, Integer offset, Long categoryId, String query);
     int count(Long categoryId, String query);
 
-    MenuView findById(Long menuId);
+    Menu findById(Long menuId);
 
     List<MenuView> findAllByName(String name);
 

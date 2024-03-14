@@ -45,19 +45,19 @@ public class MenuController {
 
         if(categoryId != null && query != null){
             list = service.getList(page, categoryId, query);
-            count = service.count(categoryId, query);
+            count = service.getCount(categoryId, query);
         }
         else if(categoryId != null){
             list = service.getList(page, categoryId);
-            count = service.count(categoryId);
+            count = service.getCount(categoryId);
         }
         else if (query != null){
             list = service.getList(page, query);
-            count = service.count(query);
+            count = service.getCount(query);
         }
         else{
             list = service.getList(page);
-            count = service.count();
+            count = service.getCount();
             
         }
 
@@ -71,7 +71,7 @@ public class MenuController {
     @GetMapping("detail")
     public String detail(@RequestParam(value = "id") Long menuId, Model model) {
 
-        MenuView menu = service.get(menuId);
+        Menu menu = service.getById(menuId);
         System.out.println(menu.toString());
         model.addAttribute("menu", menu);
         return "menu/detail";
@@ -91,7 +91,7 @@ public class MenuController {
 
     @GetMapping("edit")
     public String edit(@RequestParam(value = "id") Long menuId, Model model) {
-        MenuView menu = service.get(menuId);
+        Menu menu = service.getById(menuId);
         System.out.println("edit"+menu.toString());
         model.addAttribute("menu", menu);
         return "menu/edit";

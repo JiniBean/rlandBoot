@@ -46,10 +46,10 @@
       from menu_view
       where category_id = #{id}
     </select> -->
-    <select id="findById" resultType="MenuView">
+    <select id="findById" resultType="Menu">
         select
         *
-        from menu_view
+        from menu
         WHERE id=#{id}
     </select>
 
