@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ko"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="inc/layout">
+<head>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/newtil-css@0.1.32/dist/style.css" />
+    <script>
+        window.addEventListener("load", function(e){
+            var a1 = document.querySelector("#a1");
+            a1.onclick = function(e){
+                e.preventDefault();
+
+                var exam = new Object();
+                exam["kor"] = 30;
+                exam.eng = 40;
+
+                console.log(exam);
+
+                var num = new Array();
+                num.push(1);
+                num.push(2);
+                num.push(3);
+                num.push(4);
+                num.push(5);
+                // console.log(num);
+
+                var num1 = num.shift();
+
+                num.unshift(9);
+
+                var num2 = new Array(10,11,12,13);
+                num.splice(0,0, 100);
+                num.splice(3,0, num2);
+
+                // console.log(num);
+                //
+                // for(var num of num)
+                //     console.log(num);
+                // console.log(num, num1);
+                // num.pop();
+                // num.pop();
+                // console.log(num);
+
+
+
+                // var nums = new Array();
+                // nums[0] = 1;
+                // nums[3] = 2;
+                // nums[2] = 15;
+                // nums[1] = 0;
+                //
+                // // console.log(nums);
+                //
+                // var arr = new Array(1,2, nums);
+
+                // console.log(arr[0]);
+                // console.log(typeof arr[1]);
+                // console.log(typeof  arr[2]);
+                // console.log(typeof arr[2][1]);
+                // console.log(typeof arr);
+
+
+                // var x;
+                // alert(x === undefined); //true 참조비교 undefined 객체가 null과 다르다고 보는 것
+                // alert(x === null);      //false
+                // alert(x == undefined);  //true  값을 비교, like
+                // alert(x == null);       //true
+            };
+        })
+    </script>
+</head>
+
+<body>
+    <main layout:fragment="main" class="d:flex fl-dir:column gap:3 ac:center">
+        <section>
+            <header>
+                <h1 class="fw:3 fs:3 deco icon:trophy deco-size:3 ">메뉴 목록</h1>
+                <div><button class="n-btn n-btn-size:1">추가</button></div>
+            </header>
+            
+            <section class="bg-color:base-2 p:3 bd-radius:1">
+                <h1 class="d:none">카테고리 목록</h1>
+                <ul class="n-list n-tag-list">
+                    <li><a href="" >커피</a></li>
+                    <li><a id="a1" href="">쿠키</a></li>
+                    <li><a href="">과일청</a></li>
+                    <li><a href="">샌드위치</a></li>
+                </ul>
+            </section>
+        </section>
+
+        <section class="width:auto">
+            <h1 class="d:none">메뉴검색폼</h1>
+            <form action="" method="post" class="n-form n-field-label-position:left bg-color:base-2">
+                <div>
+                    <label class="fl-dir:row ai:center">
+                        <span class="w:2 font-weight:3  txt-al:center font-size:3 ">메뉴명</span>
+                        <input type="text" name="menu" class="n-textbox n-textbox:outline" placeholder="Basic Textbox"  >
+                    </label>
+                    
+                </div>
+                <div class="d:flex fl-dir:row jc:center gap:3">
+                    <button class="n-btn n-btn-size:1 n-btn-type:outline deco icon:magnifying_glass deco-size:2">검색</button>
+                    <button class="n-btn n-btn-size:1 n-btn-type:outline">초기화</button>
+                </div>
+            </form>
+        </section>
+    </main>
+</body>
+</html>

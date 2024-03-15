@@ -5,16 +5,16 @@
             <h1><a th:href="@{/index}" href="index">Rland</a></h1>
             <nav class="main-menu">
                 <ul class="md:d:flex ">  <!--md:d:none-->
-                    <li><a class="icon icon-menu icon-color:base-0" href="/admin/index">메뉴</a></li>
+                    <li><a class="icon icon-menu icon-color:base-1" href="/admin/index">메뉴</a></li>
                 </ul>
                 <ul class="d:none md:d:flex">
-                    <li><a class="icon icon-cart icon-color:base-0" href="/cart/list">장바구니</a></li>
-                    <li><a class="icon icon-alert icon-color:base-0 icon-count-with" href="">알림<span>2</span></a></li>
-                    <li sec:authorize="isAnonymous"> <a class="icon icon-person icon-color:base-0" href="../user/signin">로그인</a></li>
+                    <li><a class="icon icon-cart icon-color:base-1" href="/cart/list">장바구니</a></li>
+                    <li><a class="icon icon-alert icon-color:base-1 icon-count-with" href="">알림<span>2</span></a></li>
+                    <li sec:authorize="isAnonymous"> <a class="icon icon-person icon-color:base-1" href="../user/signin">로그인</a></li>
                     <li sec:authorize="isAuthenticated()">
                         <span sec:authentication="name">유저네임</span>
                         <!-- <span th:text="${#authentication.name}">유저네임</span> -->
-                        <a class="icon icon-sign-out icon-color:base-0" href="/user/logout">로그아웃</a></li>
+                        <a class="icon icon-sign-out icon-color:base-1" href="/user/logout">로그아웃</a></li>
                 </ul>
             </nav>
         </div>

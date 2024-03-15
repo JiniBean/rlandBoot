@@ -37,7 +37,7 @@ public class WebSecurityConfig {
 		http
 		.authorizeHttpRequests((requests) -> requests
 		.requestMatchers("/user/*").hasAnyRole("ADMIN", "USER")// 롤 가지고 있나
-		.requestMatchers("/admin/**").hasAnyRole("ADMIN")
+		// .requestMatchers("/admin/**").hasAnyRole("ADMIN")
 		// .requestMatchers("/user/*").authenticated()// 인증해야돼 -> anyRequest() 기본값
 		.anyRequest().permitAll()// 허락해줌
 		)
