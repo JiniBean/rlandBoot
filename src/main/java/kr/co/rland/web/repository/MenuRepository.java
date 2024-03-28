@@ -23,5 +23,5 @@ public interface MenuRepository {
 
     void update(Menu menu);
 
-    void delete(int id);
+    void delete(Long id);
 }

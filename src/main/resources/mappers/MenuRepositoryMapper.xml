@@ -69,5 +69,9 @@
         where id = #{id}
     </update>
 
+    <delete id="delete">
+        DELETE FROM menu where id=#{id};
+    </delete>
+
 
 </mapper> 

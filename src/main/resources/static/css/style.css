@@ -4,7 +4,7 @@ html
 }
 
 body{
-    font-family: 'Noto Sans KR', sans-serif;
+
     font-size:14px;
     color:var(--color-base-9);
 
@@ -18,4 +18,13 @@ main{
 
 *{
     box-sizing: border-box;
+}
+
+.fade{
+    opacity: 1;
+    transition: opacity 0.5s;
+}
+
+.fade-out{
+    opacity: 0;
 }

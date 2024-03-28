@@ -92,4 +92,9 @@ public class MenuServiceImp implements MenuService {
         repository.update(menu);
     }
 
+    @Override
+    public void delete(Long id) {
+        repository.delete(id);
+    }
+
 }

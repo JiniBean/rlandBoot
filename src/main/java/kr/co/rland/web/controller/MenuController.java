@@ -1,15 +1,19 @@
 package kr.co.rland.web.controller;
 
+import java.lang.reflect.Type;
+import java.net.URLDecoder;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import kr.co.rland.web.entity.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import kr.co.rland.web.entity.Category;
 import kr.co.rland.web.entity.Menu;
@@ -27,17 +31,16 @@ public class MenuController {
     @Autowired
     private CategoryService categoryService;
 
+
     @GetMapping("/list")
     public String list(
-              @RequestParam(name = "c", required = false) Long categoryId
+            @RequestParam(name = "c", required = false) Long categoryId
             , @RequestParam(name = "q", required = false) String query
             , @RequestParam(name = "p", required = false, defaultValue = "1") Integer page
             , @RequestParam(name = "s", required = false) Integer size
+            , @CookieValue(name = "menus", required = false) String menusCookies
             , Model model)
     {
-        System.out.println("recived categoryId = " + categoryId);
-        System.out.println("recived page number = " + page);
-
         List<Category> categories = categoryService.getList();
 
         List<MenuView> list = new ArrayList<>();
@@ -58,12 +61,35 @@ public class MenuController {
         else{
             list = service.getList(page);
             count = service.getCount();
-            
+
+        }
+
+
+//      ----------------- 장바구니 쿠키 갖고 오기 --------------------
+        int cartCount = 0;
+        int cartTotal = 0;
+
+        if (menusCookies != null){
+            Type menuListType = new TypeToken<List<Menu>>(){}.getType();
+            String menuStr = URLDecoder.decode(menusCookies, StandardCharsets.UTF_8);
+//            List<Menu> cartList = new Gson().fromJson(menusCookies, List.class);
+            List<Menu> cartList = new Gson().fromJson(menusCookies, menuListType);
+
+
+            cartCount = cartList.size();
+
+            System.out.println("cartcount = " + cartCount);
+
+            for(Menu m :cartList)
+                cartTotal += m.getPrice();
+
         }
 
         model.addAttribute("list", list);
         model.addAttribute("categories", categories);
         model.addAttribute("count", count);
+        model.addAttribute("cartCount", cartCount);
+        model.addAttribute("cartTotal", cartTotal);
 
         return "menu/list";
     }
@@ -83,15 +109,17 @@ public class MenuController {
     }
 
     @PostMapping("reg")
-    public String reg(Menu menu) {
+    public String reg(Menu menu, Test test) {
         service.reg(menu);
-        System.out.println(menu.toString());
+        System.out.println("menu : "+ menu.toString());
+        System.out.println("test : "+ test.toString());
+//        System.out.println(menu.toString());
         return "redirect:/menu/list";
     }
 
     @GetMapping("edit")
-    public String edit(@RequestParam(value = "id") Long menuId, Model model) {
-        Menu menu = service.getById(menuId);
+    public String edit(@RequestParam(value = "id") Long id, Model model) {
+        Menu menu = service.getById(id);
         System.out.println("edit"+menu.toString());
         model.addAttribute("menu", menu);
         return "menu/edit";
@@ -103,4 +131,13 @@ public class MenuController {
         System.out.println(menu.toString());
         return "redirect:/menu/list";
     }
+
+    @GetMapping("delete")
+    public String delete(@RequestParam(value = "id") Long id){
+
+        service.delete(id);
+
+        return "redirect:/menu/list";
+    }
+
 }

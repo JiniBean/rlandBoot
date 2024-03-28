@@ -21,14 +21,14 @@ https://github.com/orioncactus/pretendard */
 .font-family\:monospace {font-family: "SFMono-Regular",Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace !important; }
 
 /* ------- font-size ------------------------- */
-.font-size\:-1, .fs\:-1{ font-size: 12px !important; }
-.font-size\:0, .fs\:0 { font-size: 14px !important; }
-.font-size\:1, .fs\:1 { font-size: 16px !important; }
-.font-size\:2, .fs\:2 { font-size: 18px !important; }
-.font-size\:3, .fs\:3 { font-size: 20px !important; }
-.font-size\:4, .fs\:4 { font-size: 22px !important; }
-.font-size\:5, .fs\:5 { font-size: 24px !important; }
-.font-size\:6, .fs\:6 { font-size: 24px !important; }
+.font-size\:-1{ font-size: 12px !important; }
+.font-size\:0 { font-size: 14px !important; }
+.font-size\:1 { font-size: 16px !important; }
+.font-size\:2 { font-size: 18px !important; }
+.font-size\:3 { font-size: 20px !important; }
+.font-size\:4 { font-size: 22px !important; }
+.font-size\:5 { font-size: 24px !important; }
+.font-size\:6 { font-size: 24px !important; }
 
 .font-size\:1r{ font-size:.5em!important; }
 .font-size\:2r{ font-size:.75em!important; }

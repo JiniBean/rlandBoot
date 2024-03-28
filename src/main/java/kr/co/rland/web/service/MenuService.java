@@ -25,4 +25,6 @@ public interface MenuService {
 
     void reg(Menu menu);
     void update(Menu menu);
+
+    void delete(Long id);
 }

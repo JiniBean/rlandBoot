@@ -20,6 +20,6 @@ public class Menu {
 	private String engName;
 	private int price;
 	private String img;
-	private Date regDate;
+	private String regDate;
     private long categoryId;
 }

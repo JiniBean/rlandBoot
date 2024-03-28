@@ -36,20 +36,20 @@ public class CartController {
         ,Model model){
         
         
-        // String menuStr = URLDecoder.decode(menus, Charset.forName("utf-8"));
-        // System.out.println("--------------------------------------------------------------------------------------");
-        // System.out.println("디코딩 = " + menuStr);
-
-        // Menu menu = new Gson().fromJson(menuStr, Menu.class);
-        // System.out.println("--------------------------------------------------------------------------------------");
-        // System.out.println("메뉴객체 = " + menu);
-        // System.out.println();
-
-        if (menus != null){
-            String menuStr = URLDecoder.decode(menus, Charset.forName("utf-8"));
-            List<Menu> menuList = new Gson().fromJson(menuStr, List.class);
-            model.addAttribute("menus", menuList);
-        }
+//         String menuStr = URLDecoder.decode(menus, Charset.forName("utf-8"));
+//        // System.out.println("--------------------------------------------------------------------------------------");
+//        // System.out.println("디코딩 = " + menuStr);
+//
+//         Menu menu = new Gson().fromJson(menuStr, Menu.class);
+//        // System.out.println("--------------------------------------------------------------------------------------");
+//        // System.out.println("메뉴객체 = " + menu);
+//        // System.out.println();
+//
+//        if (menus != null){
+//            String menuStr = URLDecoder.decode(menus, Charset.forName("utf-8"));
+//            List<Menu> menuList = new Gson().fromJson(menuStr, List.class);
+//            model.addAttribute("menus", menuList);
+//        }
 
 
         return "cart/list";
