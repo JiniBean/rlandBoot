@@ -105,6 +105,7 @@ function Cookie() {
         }
     }
 
+
 }
 
 Cookie.prototype = {
@@ -120,13 +121,13 @@ Cookie.prototype = {
 
         var str = "[";
 
-        for(m of list){
+        for(var m of list){
             str += JSON.stringify(m);
             if(m !== list[lastIdx])
                 str += ",";
         }
-
         str += "]";
+
         var encoded = encodeURIComponent(str);
         document.cookie = `menus=${encoded}; path=/;`;
 
@@ -160,6 +161,7 @@ window.addEventListener("load", function (){
 
     // var li1 = categoryFilter.querySelector("ul>li:nth-child(2)");
     // var a = categoryFilter.querySelector("ul>li>a");
+    var cookie = new Cookie();
 
     var queryForm = this.document.getElementById("query-form");
     var queryButton = queryForm.getElementsByClassName("icon-find")[0];
@@ -168,7 +170,17 @@ window.addEventListener("load", function (){
     var menuCardList = document.getElementById("menu-card-list");
     var menuContent = menuCardList.getElementsByClassName("content")[0];
 
+    var totalSection = document.getElementById("total-section");
+    var totalPrice = totalSection.getElementsByClassName("total")[0];
+    var totalCount = totalSection.querySelector(".icon-basket_outline");
+
     // var cartBtn = menuContent.querySelector(".btn-cart");
+    // var totalPriceText = null;
+    // var totalCountText = null;
+    //
+    // totalPrice.textContent= totalPriceText || totalPrice.dataset.total ;
+    //
+    // totalCount.textContent = totalCountText || totalCount.dataset.count;
 
     menuContent.onclick = function (e) {
 
@@ -176,8 +188,6 @@ window.addEventListener("load", function (){
             return;
 
         alert("담겻습니다");
-
-        var cookie = new Cookie();
 
         var item = {};
         item.id = e.target.dataset.id;
@@ -190,6 +200,7 @@ window.addEventListener("load", function (){
         item.likeCount = e.target.dataset.likeCnt;
         item.categoryId = e.target.dataset.ctgrid;
 
+        sum(item.price, 1);
         
         cookie.addItem("menus", item);
 
@@ -234,6 +245,11 @@ window.addEventListener("load", function (){
             console.log("검색어");
         });
     };
+
+    function sum (price, count){
+        totalCount.textContent = totalCount.dataset.count + count
+        totalPrice.textContent = totalPrice.dataset.total + price;
+    }
 
     function request(url, callback, method) {
 

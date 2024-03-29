@@ -3,7 +3,6 @@ package kr.co.rland.web.controller;
 import java.lang.reflect.Type;
 import java.net.URLDecoder;
 import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,15 +64,17 @@ public class MenuController {
         }
 
 
+
 //      ----------------- 장바구니 쿠키 갖고 오기 --------------------
         int cartCount = 0;
         int cartTotal = 0;
 
         if (menusCookies != null){
             Type menuListType = new TypeToken<List<Menu>>(){}.getType();
-            String menuStr = URLDecoder.decode(menusCookies, StandardCharsets.UTF_8);
+//            String menuStr = URLDecoder.decode(menusCookies, StandardCharsets.UTF_8);
+            String menuStr = URLDecoder.decode(menusCookies, Charset.forName("utf-8"));
 //            List<Menu> cartList = new Gson().fromJson(menusCookies, List.class);
-            List<Menu> cartList = new Gson().fromJson(menusCookies, menuListType);
+            List<Menu> cartList = new Gson().fromJson(menuStr, menuListType);
 
 
             cartCount = cartList.size();
@@ -84,6 +85,7 @@ public class MenuController {
                 cartTotal += m.getPrice();
 
         }
+
 
         model.addAttribute("list", list);
         model.addAttribute("categories", categories);
@@ -103,19 +105,19 @@ public class MenuController {
         return "menu/detail";
     }
 
-    @GetMapping("reg")
-    public String reg() {
-        return "menu/reg";
-    }
-
-    @PostMapping("reg")
-    public String reg(Menu menu, Test test) {
-        service.reg(menu);
-        System.out.println("menu : "+ menu.toString());
-        System.out.println("test : "+ test.toString());
-//        System.out.println(menu.toString());
-        return "redirect:/menu/list";
-    }
+//    @GetMapping("reg")
+//    public String reg() {
+//        return "menu/reg";
+//    }
+//
+//    @PostMapping("reg")
+//    public String reg(Menu menu, Test test) {
+//        service.reg(menu);
+//        System.out.println("menu : "+ menu.toString());
+//        System.out.println("test : "+ test.toString());
+////        System.out.println(menu.toString());
+//        return "redirect:/menu/list";
+//    }
 
     @GetMapping("edit")
     public String edit(@RequestParam(value = "id") Long id, Model model) {

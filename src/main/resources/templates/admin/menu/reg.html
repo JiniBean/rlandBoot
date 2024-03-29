@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="inc/layout">
+<head>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/newtil-css@0.1.32/dist/style.css" />
+</head>
+<body class="d:flex d:flex fl-dir:column ac:center w:10p">
+    <main layout:fragment="main" class="d:flex fl-dir:column gap:6 w:9">
+<!--        <h1>상품 등록</h1>-->
+<!--        <form action="reg" method="post" class="n-form n-field-label-position:top">-->
+<!--            <fieldset>-->
+<!--                <legend>메뉴정보</legend>-->
+<!--                <div>-->
+<!--                    <label>-->
+<!--                        <span>한글이름</span>-->
+<!--                        <input type="text" name="korName" >-->
+<!--                    </label>-->
+<!--                </div>-->
+<!--                <div>-->
+<!--                    <label>-->
+<!--                        <span>영어이름</span>-->
+<!--                        <input type="text"name="engName">-->
+<!--                    </label>-->
+<!--                </div>-->
+<!--                <div>-->
+<!--                    <label>-->
+<!--                        <span>가격</span>-->
+<!--                        <input type="text" name="price">-->
+<!--                    </label>-->
+<!--                </div>-->
+<!--                <div>-->
+<!--                    <label>-->
+<!--                        <span>이미지</span>-->
+<!--                        <input type="input" name="img">-->
+<!--                    </label>-->
+<!--                </div>-->
+<!--                <div>-->
+<!--                    <label>-->
+<!--                        <span>분류</span>-->
+<!--                        <input type="text" name="categoryId">-->
+<!--                    </label>-->
+<!--                </div>-->
+<!--            </fieldset>-->
+<!--            <div>-->
+<!--                <button>등록</button>-->
+<!--            </div>-->
+<!--        </form>-->
+    <header class="d:flex w:10p jc:space-between">
+        <h1 class="fw:3 fs:3">메뉴 목록</h1>
+        <div><button class="n-btn">추가</button></div>
+    </header>
+    <section>
+        <h1 class="d:none">메뉴 등록 폼</h1>
+        <form class="n-form md:n-field-label-position:top">
+            <div>
+                <label>
+                    <span>한글이름</span>
+                    <input type="text" name="korName" >
+                </label>
+            </div>
+            <div>
+                <label>
+                    <span>영어이름</span>
+                    <input type="text"name="engName">
+                </label>
+            </div>
+            <div>
+                <label>
+                    <span>가격</span>
+                    <input type="text" name="price">
+                </label>
+            </div>
+            <div>
+                <label>
+                    <span>이미지</span>
+                    <input type="input" name="img">
+                </label>
+            </div>
+            <div>
+                <label>
+                    <span>분류</span>
+                    <input type="text" name="categoryId">
+                </label>
+            </div>
+        </form>
+    </section>
+    </main>
+</body>
+</html>

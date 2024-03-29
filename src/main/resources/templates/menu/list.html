@@ -55,7 +55,7 @@
                 </section>
                 <section class="d:flex" style="justify-content: center; align-items: center;">
                     <div  class="d:flex" style="justify-content: center; align-items: center; width: 40px; height: 40px; border: 1px solid #333333;">
-                        <a href="reg">등록</a>
+                        <a href="/admin/menu/reg">등록</a>
                     </div>
                 </section>
                 <!--                                <input type="hidden" th:value="${param.c}" name="c">-->
@@ -139,11 +139,11 @@
             </ul>
         </section>
 
-        <section class="basket-status">
+        <section id="total-section" class="basket-status">
             <h1 class="d:none">Basket Bar</h1>
             <dl class="ph:3">
                 <dt>금액</dt>
-                <dd class="ml:2" th:text="${cartTotal + '원'}" th:data-total=${cartTotal}>5,000원</dd>
+                <dd class="ml:2 total" th:text="${cartTotal + '원'}" th:data-total=${cartTotal}>5,000원</dd>
                 <dt class="d:none">수량</dt>
                 <dd class="ml:auto"><a href="/basket/list" th:text="${cartCount}" th:data-count="${cartCount}"
                                     class="icon icon-basket_outline icon-color:base-0 icon-size:4 icon-text-with">1</a></dd>
