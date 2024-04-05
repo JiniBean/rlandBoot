@@ -40,7 +40,7 @@ public class UserController {
                         // ,HttpSession session
                         
                         ){
-        
+
         Map<String, String> map = new HashMap<>();
         map.put("userName", userName);
         map.put("password", password);

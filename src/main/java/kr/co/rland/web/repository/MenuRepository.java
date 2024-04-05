@@ -19,9 +19,9 @@ public interface MenuRepository {
 
     List<MenuView> findAllByCategory(long id);
 
-    void save(Menu menu);
+    int save(Menu menu);
 
-    void update(Menu menu);
+    int update(Menu menu);
 
-    void delete(Long id);
+    int delete(Long id);
 }

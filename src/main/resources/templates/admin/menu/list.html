@@ -5,6 +5,10 @@
     layout:decorate="inc/layout">
 <head>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/newtil-css@0.1.32/dist/style.css" />
+    <link href="/css/components/menu/card.css" rel="stylesheet" type="text/css">
+    <link href="/css/components/menu/menu-filter.css" rel="stylesheet" type="text/css">
+    <link href="/css/components/menu/basket-status.css" rel="stylesheet" type="text/css">
+    <link href="/css/components/menu/list.css" rel="stylesheet" type="text/css">
     <script>
 
         // var stl = "var x= 30;";
@@ -110,31 +114,36 @@
 </head>
 
 <body>
-    <main layout:fragment="main" class="d:flex fl-dir:column gap:3 ac:center">
+    <main layout:fragment="main" class="d:flex fl-dir:column gap:3 ac:center ml:4 mr:4">
         <section>
             <header>
                 <h1 class="fw:3 fs:3 deco icon:trophy deco-size:3 ">메뉴 목록</h1>
-                <div><button class="n-btn n-btn-size:1">추가</button></div>
+                <div><a href="reg" class="n-btn n-btn-size:1">추가</a></div>
             </header>
             
             <section class="bg-color:base-2 p:3 bd-radius:1">
                 <h1 class="d:none">카테고리 목록</h1>
                 <ul class="n-list n-tag-list">
-                    <li><a href="" >커피</a></li>
-                    <li><a id="a1" href="">쿠키</a></li>
-                    <li><a href="">과일청</a></li>
-                    <li><a href="">샌드위치</a></li>
+                    <li><a href="list">전체메뉴</a></li>
+                    <li  th:each="c : ${categories}">
+                        <a href=""
+                           th:data-id=${c.id}
+                           th:href="param.q == null ? @{list(c=${c.id})} : @{list(c=${c.id}, q=${param.q})}"
+                           th:text="${c.name}"
+                        >커피</a>
+                    </li>
                 </ul>
             </section>
         </section>
 
         <section class="width:auto">
             <h1 class="d:none">메뉴검색폼</h1>
-            <form action="" method="post" class="n-form n-field-label-position:left bg-color:base-2">
+            <form action="list" method="get" class="n-form n-field-label-position:left bg-color:base-2">
                 <div>
                     <label class="fl-dir:row ai:center">
                         <span class="w:2 font-weight:3  txt-al:center font-size:3 ">메뉴명</span>
-                        <input type="text" name="menu" class="n-textbox n-textbox:outline" placeholder="Basic Textbox"  >
+                        <input type="text" class="n-textbox n-textbox:outline" placeholder="메뉴 검색"  name="q" th:value="${param.q}" >
+                        <input type="hidden" placeholder="메뉴 검색" name="c" th:value="${param.c}">
                     </label>
                     
                 </div>
@@ -143,6 +152,62 @@
                     <button class="n-btn n-btn-size:1 n-btn-type:outline">초기화</button>
                 </div>
             </form>
+        </section>
+
+
+        <section class="d:flex flex:wrap gap:2 menu-list w:10p">
+            <h1 class="d:none">메뉴 검색 목록</h1>
+            <section th:each="m:${list}" class="menu-card">
+                <h1>
+                    <a th:text="${m.korName}" th:href="@{/menu/detail(id=${m.id})}" class="heading-3">카페라떼1</a>
+                </h1>
+                <h2 th:text="${m.engName}" class="heading-2 font-weight:normal color:base-5">Cafe Latte</h2>
+                <div th:text="${m.price}" class="price-block d:flex align-items:flex-end"><span
+                        class="font-weight:bold">4,500</span>원<span
+                        class="soldout-msg ml:auto mr:auto md:d:none">SOLD OUT</span></div>
+                <div class="img-block">
+                    <a th:href="@{detail(id=${m.id})}" href="detail.html?id=1"><img
+                            src="/image/menu/8.jpg"
+                            th:src="@{'/image/menu/'+ ${m.img==null? '8.jpg':m.img}}">
+
+                    </a>
+                </div>
+                <div class="like-block d:flex justify-content:flex-end">
+                    <a class="icon icon-heart-fill icon-color:main-1" href="">좋아요</a>
+                    <span class="font-weight:bold ml:1" th:text="${m.likeCount}">2</span>
+                </div>
+                </form>
+            </section>
+        </section>
+
+        <section class="mb:4">
+            <h1 class="d:none">페이저</h1>
+            <ul class="n-pager" style="display: flex; justify-content: center; gap: 20px"
+                th:with="page=${param.p} eq null ? 1 : ${{param.p}}
+                ,temp=(${page}-1)/7
+                ,startnum=${T(java.lang.Math).floor(temp)}*7+1
+                ,lastnum=${count} mod 8 > 0 ? ${count div 8}+1 : ${count div 8}">
+
+                <li>
+                    <span th:if="${page} lt 6">이전</span>
+                    <a th:if="${page} ge 6" th:href="@{list(p= ${startnum-1}, c=${param.c}, q=${param.q})}" href="list?p=1">이전</a>
+                </li>
+
+                <li th:each="n: ${#numbers.sequence(startnum,startnum+4)}"
+                    th:if="${lastnum} ge ${n}"
+                    th:class="${page}==${n} ? 'active' : ''">
+                    <a href="list?p=2"
+                       th:href="@{list(p=${n}, c=${param.c}, q=${param.q})}"
+                       th:text="${n}"
+                    >1
+                    </a>
+                </li>
+                <li>
+                    <span th:if="${lastnum} lt ${startnum+7}">다음</span>
+                    <a th:if="${lastnum} ge ${startnum+7}"
+                       th:href="@{list(p= ${startnum+7}, c=${param.c}, q=${param.q})}" href="list?p=6">다음</a>
+                </li>
+            </ul>
         </section>
     </main>
 </body>

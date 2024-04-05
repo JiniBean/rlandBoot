@@ -7,5 +7,11 @@ spring:
   output:
     ansi:
       enabled: always
+
+  servlet:
+    multipart:
+      max-file-size: 200MB
+      max-request-size: 400MB
+#      file-size-threshold: 10MB
 # server:
 #   port: 80

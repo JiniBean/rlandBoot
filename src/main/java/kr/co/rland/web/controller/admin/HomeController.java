@@ -33,8 +33,8 @@ public class HomeController {
         // System.out.println("관리자 = "+username);
         
         //방법2
-        String username = principal.getName();
-        System.out.println("관리자 = "+username);
+//        String username = principal.getName();
+//        System.out.println("관리자 = "+username);
 
 
 

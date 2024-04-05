@@ -15,7 +15,7 @@ public class MenuServiceImp implements MenuService {
     @Autowired
     private MenuRepository repository;
 
-    private int size = 6;
+    private int size = 8;
 
     @Override
     public List<MenuView> getList(Integer page) {
@@ -83,8 +83,9 @@ public class MenuServiceImp implements MenuService {
     }
 
     @Override
-    public void reg(Menu menu) {
-        repository.save(menu);
+    public int reg(Menu menu , List<String> imgFiles) {
+        int affected = repository.save(menu);
+        return affected;
     }
 
     @Override

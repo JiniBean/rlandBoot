@@ -172,7 +172,7 @@ window.addEventListener("load", function (){
 
     var totalSection = document.getElementById("total-section");
     var totalPrice = totalSection.getElementsByClassName("total")[0];
-    var totalCount = totalSection.querySelector(".icon-basket_outline");
+    let totalCount = totalSection.querySelector(".icon-basket_outline");
 
     // var cartBtn = menuContent.querySelector(".btn-cart");
     // var totalPriceText = null;
@@ -186,6 +186,7 @@ window.addEventListener("load", function (){
 
         if(!e.target.classList.contains("btn-cart"))
             return;
+        mun = 1;
 
         alert("담겻습니다");
 

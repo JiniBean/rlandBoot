@@ -1,11 +1,10 @@
 package kr.co.rland.web.entity;
 
-import java.util.Date;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 // @Getter
 // @Setter
@@ -22,4 +21,6 @@ public class Menu {
 	private String img;
 	private String regDate;
     private long categoryId;
+	private long regMemberId;
+
 }

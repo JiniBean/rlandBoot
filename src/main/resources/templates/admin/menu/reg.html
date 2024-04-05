@@ -1,91 +1,139 @@
-<!DOCTYPE html>
-<html
-    xmlns:th="http://www.thymeleaf.org"
-    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-    layout:decorate="inc/layout">
+<!doctype html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="inc/layout">
 <head>
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/newtil-css@0.1.32/dist/style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .n-container{
+            --container-max-width: 900px;
+        }
+        input:invalid{
+
+        }
+
+        .n-form>div::after{
+            /*content: "dfdfdfdfdfdfdfdfd";*/
+            display: inline-block;
+            background-color: #efeffa;
+            width: 0px;
+            height: 10%;
+            overflow: hidden;
+
+            /*opacity: 0;*/
+
+            transition: width 1s;
+        }
+
+        .n-form>div:has(input:invalid)::after{
+            width: 50%;
+            content:"두글자 이상 되어야 합니다";
+            opacity: 1;
+        }
+
+        .preview{
+            overflow: hidden;
+        }
+        .preview img{
+            height: 100px;
+            /*opacity: 0;*/
+            /*transition: opacity 1s;*/
+            /*position: relative;*/
+            /*left: -200px;*/
+            /*transition: left 1s;*/
+
+            transform: translateX(-200px);
+            transition: transform 1s;
+
+        }
+        .preview img.fade-in{
+            /*opacity: 1;*/
+            /*left: 0px;*/
+            transform: translateX(0);
+
+        }
+
+        .img-label.valid{
+            background-color: #bfdbfe;
+        }
+
+        .img-label.invalid{
+            background-color: #d86259;
+        }
+
+        .img-label.invalid::after{
+            content: "파일이 아닙니다";
+            display: inline-block;
+        }
+
+
+    </style>
+    <script src="/js/admin/menu/reg.js"></script>
 </head>
-<body class="d:flex d:flex fl-dir:column ac:center w:10p">
-    <main layout:fragment="main" class="d:flex fl-dir:column gap:6 w:9">
-<!--        <h1>상품 등록</h1>-->
-<!--        <form action="reg" method="post" class="n-form n-field-label-position:top">-->
-<!--            <fieldset>-->
-<!--                <legend>메뉴정보</legend>-->
-<!--                <div>-->
-<!--                    <label>-->
-<!--                        <span>한글이름</span>-->
-<!--                        <input type="text" name="korName" >-->
-<!--                    </label>-->
-<!--                </div>-->
-<!--                <div>-->
-<!--                    <label>-->
-<!--                        <span>영어이름</span>-->
-<!--                        <input type="text"name="engName">-->
-<!--                    </label>-->
-<!--                </div>-->
-<!--                <div>-->
-<!--                    <label>-->
-<!--                        <span>가격</span>-->
-<!--                        <input type="text" name="price">-->
-<!--                    </label>-->
-<!--                </div>-->
-<!--                <div>-->
-<!--                    <label>-->
-<!--                        <span>이미지</span>-->
-<!--                        <input type="input" name="img">-->
-<!--                    </label>-->
-<!--                </div>-->
+<body>
+    <main layout:fragment="main" class="n.container m:auto">
+        <header class="d:flex ai:center jc:space-between p:3">
+            <h1 class="n-font n-font:title">☕메뉴 목록</h1>
+            <div>
+                <a href="list" class="n-btn">취소</a>
+            </div>
+        </header>
+        <section class="w:10 p:2">
+            <form class="n-form n-field-label-position:top "  enctype="multipart/form-data" id="reg-form"
+                  method="post">
+                <h1 class="fs:3 fw:3">✏️ 메뉴 등록 폼</h1>
+                <div>
+                    <label>
+                        <span >한글이름</span>
+                        <input class="lll" type="text" name="korName" list="menu-list" required minlength="2"
+                               autocomplete="off"
+                               autofocus
+                               title="두글자 이상 되어야 합니다">
+                        <datalist id="menu-list">
+                            <option>아아</option>
+                            <option>맘마</option>
+                            <option>아야</option>
+                            <option>라떼</option>
+                        </datalist>
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        <span>영어이름</span>
+                        <input type="text" name="engName" >
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        <span>가격</span>
+                        <input type="number" name="price" required>
+                    </label>
+                </div>
+                <div>
+                    <label class="img-label">
+                        <span>이미지</span>
+                        <input class="img-input d:none" type="file" name="img-file" multiple>
+                    </label>
+                </div>
+                <div class="preview fl-dir:row flex:wrap">
+                </div>
 <!--                <div>-->
 <!--                    <label>-->
 <!--                        <span>분류</span>-->
-<!--                        <input type="text" name="categoryId">-->
+<!--                        <input type="number" name="categoryId">-->
 <!--                    </label>-->
 <!--                </div>-->
-<!--            </fieldset>-->
-<!--            <div>-->
-<!--                <button>등록</button>-->
-<!--            </div>-->
-<!--        </form>-->
-    <header class="d:flex w:10p jc:space-between">
-        <h1 class="fw:3 fs:3">메뉴 목록</h1>
-        <div><button class="n-btn">추가</button></div>
-    </header>
-    <section>
-        <h1 class="d:none">메뉴 등록 폼</h1>
-        <form class="n-form md:n-field-label-position:top">
-            <div>
-                <label>
-                    <span>한글이름</span>
-                    <input type="text" name="korName" >
-                </label>
-            </div>
-            <div>
-                <label>
-                    <span>영어이름</span>
-                    <input type="text"name="engName">
-                </label>
-            </div>
-            <div>
-                <label>
-                    <span>가격</span>
-                    <input type="text" name="price">
-                </label>
-            </div>
-            <div>
-                <label>
-                    <span>이미지</span>
-                    <input type="input" name="img">
-                </label>
-            </div>
-            <div>
-                <label>
-                    <span>분류</span>
-                    <input type="text" name="categoryId">
-                </label>
-            </div>
-        </form>
-    </section>
+                <br><br>
+                <div>
+                    <button formnovalidate class="n-btn">제출</button>
+                </div>
+
+            </form>
+        </section>
     </main>
 </body>
 </html>

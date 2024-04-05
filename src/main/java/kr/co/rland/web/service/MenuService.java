@@ -23,7 +23,7 @@ public interface MenuService {
 
 
 
-    void reg(Menu menu);
+    int reg(Menu menu, List<String> fileNames);
     void update(Menu menu);
 
     void delete(Long id);
