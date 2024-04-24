@@ -8,9 +8,9 @@
     <link href="/css/components/menu/menu-filter.css" rel="stylesheet" type="text/css">
     <link href="/css/components/menu/basket-status.css" rel="stylesheet" type="text/css">
     <link href="/css/components/menu/list.css" rel="stylesheet" type="text/css">
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-<!--    <script src="/js/menu/list-dom.js" defer></script>-->
-    <script type="module" src="/js/menu/list-vue.js"></script>
+    <script src="/js/menu/list-dom.js" defer></script>
+<!--    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>-->
+<!--    <script type="module" src="/js/menu/list-vue.js" defer></script>-->
 </head>
 <body>
     <main layout:fragment="main">
@@ -18,18 +18,18 @@
             <h1 class="d:none">메뉴 검색 목록</h1>
             <div>
                 <section class="menu-filter">
-                    <h1><a href="list">Rland Menu</a><span class="d:none">검색</span></h1>
+                    <h1><a href="list-vue">Rland Menu</a><span class="d:none">검색</span></h1>
 
                     <nav class="category-filter">
                         <h1 class="d:none">카테고리 검색 메뉴 목록</h1>
                         <ul>
-                            <li><a th:class="${param.c != null ? '' : 'current'}" th:href="@{list}"
-                                class="sm:deco md:deco current sm:icon-filter_list" href="/list">전체메뉴</a></li>
+                            <li><a th:class="${param.c != null ? '' : 'current'}"
+                                class="sm:deco md:deco current sm:icon-filter_list" href="">전체메뉴</a></li>
                             <li th:each="c : ${categories}"  >
                                 <a class="d:none md:d:inline"
                                    th:data-id=${c.id}
                                    href="?c=1"
-                                   th:href="param.q == null ? @{list(c=${c.id})} : @{list(c=${c.id}, q=${param.q})}"
+                                   th:href="param.q == null ? @{list-vue(c=${c.id})} : @{list-vue(c=${c.id}, q=${param.q})}"
                                    th:class="${{param.c}}==${c.id} ? 'current d:none md:d:inline' : 'd:none md:d:inline' " th:text="${c.name}"
 
                                 >커피</a>
@@ -48,9 +48,9 @@
                         <form action="list" method="get">
                             <fieldset>
                                 <legend class="d:none">이름 검색</legend>
-                                <input class="query-input" type="text" placeholder="메뉴 검색" value="" name="q" th:value="${param.q}">
+                                <input class="query-input" type="text" placeholder="메뉴 검색" value="" name="q" th:value="${param.q}" v-model="query">
                                 <input type="hidden" placeholder="메뉴 검색" name="c" th:value="${param.c}">
-                                <button class="icon icon-find icon-color:base-9" >검색</button>
+                                <button class="icon icon-find icon-color:base-9" @click.prevent="clickHandler">검색</button>
                             </fieldset>
                         </form>
                     </section>
@@ -69,9 +69,13 @@
                     <div class="content fade">
                         <section th:each="m:${list}" class="menu-card">
                             <h1>
-                                <a th:text="${m.korName}" th:href="@{/menu/detail(id=${m.id})}" class="heading-3">카페라떼1</a>
+                                <a v-text="m.korName" th:text="${m.korName}" th:href="@{/menu/detail(id=${m.id})}"
+                                   class="heading-3">
+                                    카페라떼1</a>
                             </h1>
-                            <h2 th:text="${m.engName}" class="heading-2 font-weight:normal color:base-5">Cafe Latte</h2>
+                            <h2 th:text="${m.engName}"
+                                class="heading-2 font-weight:normal color:base-5">Cafe
+                                Latte</h2>
                             <div th:text="${m.price}" class="price-block d:flex align-items:flex-end"><span
                                     class="font-weight:bold">4,500</span>원<span
                                     class="soldout-msg ml:auto mr:auto md:d:none">SOLD OUT</span></div>
@@ -152,9 +156,6 @@
                                     class="icon icon-basket_outline icon-color:base-0 icon-size:4 icon-text-with">1</a></dd>
             </dl>
         </section>
-    <script>
-        console.log("MAIN LOAD 완료")
-    </script>
     </main>
 </body>
 </html>

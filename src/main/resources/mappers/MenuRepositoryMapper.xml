@@ -14,19 +14,35 @@
     <select id="findAll" resultType="MenuView">
         select
         *
-        from menu_view
+        from (
+            SELECT
+                m.id AS id,
+                m.kor_name AS kor_name,
+                m.eng_name AS eng_name,
+                m.price AS price,
+                m.img AS img,
+                m.reg_date AS reg_date,
+                m.category_id AS category_id,
+                COUNT(ml.menu_id) AS like_count,
+                NVL( ml.member_id = #{memberId}, 0) `like`
+            FROM
+                (menu m
+                LEFT JOIN menu_like ml ON (m.id = ml.menu_id))
+             GROUP BY m.id
+            ) mv
         <where>
             <if test="categoryId != null">
-                and category_id = #{categoryId}
+                and mv.category_id = #{categoryId}
             </if>
             <if test="query != null">
-                and kor_name like '%${query}%'
+                and mv.kor_name like '%${query}%'
             </if>
         </where>
-        order by reg_date desc
+<!--        order by mv.reg_date desc-->
         limit #{offset}, #{size}
     </select>
-    
+
+
     <select id="count" resultType="Integer">
         select 
         count(id)

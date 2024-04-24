@@ -92,18 +92,18 @@
 function Cookie() {
     this.map = {};
 
-    if(document.cookie!=null){
-        var cookieDecoded = decodeURIComponent(document.cookie);
-        var tokens = cookieDecoded.split(";");
-
-        for (c of tokens){
-            var tmp = c.split("=");
-            var key = tmp[0];
-            var value = JSON.parse(tmp[1]);
-
-            this.map[key] = value;
-        }
-    }
+    // if(document.cookie!=null){
+    //     var cookieDecoded = decodeURIComponent(document.cookie);
+    //     var tokens = cookieDecoded.split(";");
+    //
+    //     for (c of tokens){
+    //         var tmp = c.split("=");
+    //         var key = tmp[0];
+    //         var value = JSON.parse(tmp[1]);
+    //
+    //         this.map[key] = value;
+    //     }
+    // }
 
 
 }
@@ -184,33 +184,42 @@ window.addEventListener("load", function (){
 
     menuContent.onclick = function (e) {
 
-        if(!e.target.classList.contains("btn-cart"))
-            return;
+        let isValid = e.target.classList.contains("icon-heart")
+                                || e.target.classList.contains("icon-heart");
+         if(!isValid)
+             return;
+
         mun = 1;
 
-        alert("담겻습니다");
+        // icon-heart handler
+        {
+            // api/menu-likes,  POST
+        }
 
-        var item = {};
-        item.id = e.target.dataset.id;
+        //btn-card handler
+        {
+            let item = {};
+            item.id = e.target.dataset.id;
 
-        item.korName = e.target.dataset.kor;
-        item.engName = e.target.dataset.eng;
-        item.price = e.target.dataset.price;
-        item.regDate = e.target.dataset.reg;
-        item.img = e.target.dataset.img;
-        item.likeCount = e.target.dataset.likeCnt;
-        item.categoryId = e.target.dataset.ctgrid;
+            item.korName = e.target.dataset.kor;
+            item.engName = e.target.dataset.eng;
+            item.price = e.target.dataset.price;
+            item.regDate = e.target.dataset.reg;
+            item.img = e.target.dataset.img;
+            item.likeCount = e.target.dataset.likeCnt;
+            item.categoryId = e.target.dataset.ctgrid;
 
-        sum(item.price, 1);
-        
-        cookie.addItem("menus", item);
+            sum(item.price, 1);
 
-        console.log("item = ", item);
+            cookie.addItem("menus", item);
 
-        cookie.save();
+            console.log("item = ", item);
+
+            cookie.save();
 
 
-        e.preventDefault();
+            e.preventDefault();
+        }
 
         // alert("담기 누름");
     }

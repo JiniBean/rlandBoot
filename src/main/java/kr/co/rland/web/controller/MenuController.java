@@ -8,8 +8,9 @@ import java.util.List;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import kr.co.rland.web.entity.Test;
+import kr.co.rland.web.config.security.WebUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -30,6 +31,145 @@ public class MenuController {
     @Autowired
     private CategoryService categoryService;
 
+    @GetMapping("/list-react")
+    public String listReact(
+            @RequestParam(name = "c", required = false) Long categoryId
+            , @RequestParam(name = "q", required = false) String query
+            , @RequestParam(name = "p", required = false, defaultValue = "1") Integer page
+            , @RequestParam(name = "s", required = false) Integer size
+            , @CookieValue(name = "menus", required = false) String menusCookies
+            ,@AuthenticationPrincipal WebUserDetails userDetails
+            , Model model)
+    {
+        Long memberId = null;
+        if(userDetails != null)
+            memberId = userDetails.getId();
+
+        List<Category> categories = categoryService.getList();
+
+        List<MenuView> list = new ArrayList<>();
+        int count =0 ;
+
+        if(categoryId != null && query != null){
+            list = service.getList(memberId, page, categoryId, query);
+            count = service.getCount(categoryId, query);
+        }
+        else if(categoryId != null){
+            list = service.getList(memberId, page, categoryId);
+            count = service.getCount(categoryId);
+        }
+        else if (query != null){
+            list = service.getList(memberId, page, query);
+            count = service.getCount(query);
+        }
+        else{
+            list = service.getList(memberId, page);
+            count = service.getCount();
+
+        }
+
+
+
+//      ----------------- 장바구니 쿠키 갖고 오기 --------------------
+        int cartCount = 0;
+        int cartTotal = 0;
+
+        if (menusCookies != null){
+            Type menuListType = new TypeToken<List<Menu>>(){}.getType();
+//            String menuStr = URLDecoder.decode(menusCookies, StandardCharsets.UTF_8);
+            String menuStr = URLDecoder.decode(menusCookies, Charset.forName("utf-8"));
+//            List<Menu> cartList = new Gson().fromJson(menusCookies, List.class);
+            List<Menu> cartList = new Gson().fromJson(menuStr, menuListType);
+
+
+            cartCount = cartList.size();
+
+            System.out.println("cartcount = " + cartCount);
+
+            for(Menu m :cartList)
+                cartTotal += m.getPrice();
+
+        }
+
+
+        model.addAttribute("list", list);
+        model.addAttribute("categories", categories);
+        model.addAttribute("count", count);
+        model.addAttribute("cartCount", cartCount);
+        model.addAttribute("cartTotal", cartTotal);
+
+        return "menu/list-react";
+    }
+
+    @GetMapping("/list-vue")
+    public String listVue(
+            @RequestParam(name = "c", required = false) Long categoryId
+            , @RequestParam(name = "q", required = false) String query
+            , @RequestParam(name = "p", required = false, defaultValue = "1") Integer page
+            , @RequestParam(name = "s", required = false) Integer size
+            , @CookieValue(name = "menus", required = false) String menusCookies
+            ,@AuthenticationPrincipal WebUserDetails userDetails
+            , Model model)
+    {
+        Long memberId = null;
+        if(userDetails != null)
+            memberId = userDetails.getId();
+
+        List<Category> categories = categoryService.getList();
+
+        List<MenuView> list = new ArrayList<>();
+        int count =0 ;
+
+        if(categoryId != null && query != null){
+            list = service.getList(memberId, page, categoryId, query);
+            count = service.getCount(categoryId, query);
+        }
+        else if(categoryId != null){
+            list = service.getList(memberId, page, categoryId);
+            count = service.getCount(categoryId);
+        }
+        else if (query != null){
+            list = service.getList(memberId, page, query);
+            count = service.getCount(query);
+        }
+        else{
+            list = service.getList(memberId, page);
+            count = service.getCount();
+
+        }
+
+
+
+//      ----------------- 장바구니 쿠키 갖고 오기 --------------------
+        int cartCount = 0;
+        int cartTotal = 0;
+
+        if (menusCookies != null){
+            Type menuListType = new TypeToken<List<Menu>>(){}.getType();
+//            String menuStr = URLDecoder.decode(menusCookies, StandardCharsets.UTF_8);
+            String menuStr = URLDecoder.decode(menusCookies, Charset.forName("utf-8"));
+//            List<Menu> cartList = new Gson().fromJson(menusCookies, List.class);
+            List<Menu> cartList = new Gson().fromJson(menuStr, menuListType);
+
+
+            cartCount = cartList.size();
+
+            System.out.println("cartcount = " + cartCount);
+
+            for(Menu m :cartList)
+                cartTotal += m.getPrice();
+
+        }
+
+
+        model.addAttribute("list", list);
+        model.addAttribute("categories", categories);
+        model.addAttribute("count", count);
+        model.addAttribute("cartCount", cartCount);
+        model.addAttribute("cartTotal", cartTotal);
+
+        return "menu/list-vue";
+    }
 
     @GetMapping("/list")
     public String list(
@@ -38,27 +178,32 @@ public class MenuController {
             , @RequestParam(name = "p", required = false, defaultValue = "1") Integer page
             , @RequestParam(name = "s", required = false) Integer size
             , @CookieValue(name = "menus", required = false) String menusCookies
+            ,@AuthenticationPrincipal WebUserDetails userDetails
             , Model model)
     {
+        Long memberId = null;
+        if(userDetails != null)
+            memberId = userDetails.getId();
+
         List<Category> categories = categoryService.getList();
 
         List<MenuView> list = new ArrayList<>();
         int count =0 ;
 
         if(categoryId != null && query != null){
-            list = service.getList(page, categoryId, query);
+            list = service.getList(memberId, page, categoryId, query);
             count = service.getCount(categoryId, query);
         }
         else if(categoryId != null){
-            list = service.getList(page, categoryId);
+            list = service.getList(memberId, page, categoryId);
             count = service.getCount(categoryId);
         }
         else if (query != null){
-            list = service.getList(page, query);
+            list = service.getList(memberId, page, query);
             count = service.getCount(query);
         }
         else{
-            list = service.getList(page);
+            list = service.getList(memberId, page);
             count = service.getCount();
 
         }

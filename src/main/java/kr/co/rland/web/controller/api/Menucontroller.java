@@ -1,9 +1,11 @@
 package kr.co.rland.web.controller.api;
 
+import kr.co.rland.web.config.security.WebUserDetails;
 import kr.co.rland.web.entity.Menu;
 import kr.co.rland.web.entity.MenuView;
 import kr.co.rland.web.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -21,21 +23,26 @@ public class Menucontroller {
             @RequestParam(name = "c", required = false) Long categoryId
             , @RequestParam(name = "q", required = false) String query
             , @RequestParam(name = "p", required = false, defaultValue = "1") Integer page
+            ,@AuthenticationPrincipal WebUserDetails userDetails
     )
     {
         List<MenuView> list = new ArrayList<>();
 
+        Long memberId = null;
+        if(userDetails != null)
+            memberId = userDetails.getId();
+
         if(categoryId != null && query != null){
-            list = service.getList(page, categoryId, query);
+            list = service.getList(memberId,page, categoryId, query);
         }
         else if(categoryId != null){
-            list = service.getList(page, categoryId);
+            list = service.getList(memberId, page, categoryId);
         }
         else if (query != null){
-            list = service.getList(page, query);
+            list = service.getList(memberId, page, query);
         }
         else{
-            list = service.getList(page);
+            list = service.getList(memberId,page);
 
         }
 

@@ -1,6 +1,8 @@
 package kr.co.rland.web.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +34,7 @@ public class UserController {
         return "user/signin";
     }
     
-    @PostMapping("signin")
+//    @PostMapping("signin")
     public String signin(@RequestParam(value = "username", required = true) String userName
                         ,@RequestParam(value = "password", required = true) String password
                         ,Model model
@@ -44,6 +46,9 @@ public class UserController {
         Map<String, String> map = new HashMap<>();
         map.put("userName", userName);
         map.put("password", password);
+
+        List<Integer> list = new ArrayList<>();
+        list.add(4);
         
         // boolean valid = service.validate(userName, password);
 
@@ -65,4 +70,5 @@ public class UserController {
         
         return "redirect:/index";
     }
+
 }

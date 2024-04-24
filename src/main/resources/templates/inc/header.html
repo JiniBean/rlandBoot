@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en"  xmlns:sec="http://www.w3.org/1999/xhtml"  >
+
     <header class="header md:header">
         <div class="content-box">
             <h1><a th:href="@{/index}" href="index">Rland</a></h1>
@@ -9,13 +10,14 @@
                 </ul>
                 <ul class="d:none md:d:flex">
                     <li><a class="icon icon-cart icon-color:base-1" style="color:#000000" href="/cart/list">장바구니</a></li>
-                    <li><a class="icon icon-alert icon-color:base-1 icon-count-with " style="background-color:#000000" href="">알림<span>2</span></a></li>
+                    <li><a class="icon icon-alert icon-color:base-1 icon-count-with " style="background-color:#000000" href="/menu/list">알림<span>2</span></a></li>
                     <li sec:authorize="isAnonymous"> <a class="icon icon-person icon-color:base-1" style="background-color:#000000"
                          href="../user/signin">로그인</a></li>
                     <li sec:authorize="isAuthenticated()">
+<!--                        <span sec:authentication="principal.email">이 이름이 나오면 망한거</span>-->
                         <span sec:authentication="name">유저네임</span>
                         <!-- <span th:text="${#authentication.name}">유저네임</span> -->
-                        <a class="icon icon-sign-out icon-color:base-1" href="/user/logout">로그아웃</a></li>
+                        <a class="icon icon-sign-out icon-color:base-1" href="/user/signout">로그아웃</a></li>
                 </ul>
             </nav>
         </div>

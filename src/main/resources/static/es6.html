@@ -3,9 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <script src="es6.js"></script>
+    <script type="importmap">
+        {
+            "imports":{
+            "gm": "./module1.js",
+            "gb": "./module2.js"
+          }
+        }
+    </script>
+    <script type="module" src="es6-1.js"></script>
 </head>
 <body>
+<main>
+    <button class="n-btn">
+        여기를 눌러
+    </button>
 
+    <button class="n-btn">
+        여기를 눌러
+    </button>
+</main>
 </body>
 </html>

@@ -38,23 +38,24 @@ public class MenuController {
         {
             List<Category> categories = categoryService.getList();
 
+            Long memberId = null;
             List<MenuView> list = new ArrayList<>();
             int count =0 ;
 
             if(categoryId != null && query != null){
-                list = service.getList(page, categoryId, query);
+                list = service.getList(memberId,page, categoryId, query);
                 count = service.getCount(categoryId, query);
             }
             else if(categoryId != null){
-                list = service.getList(page, categoryId);
+                list = service.getList(memberId,page, categoryId);
                 count = service.getCount(categoryId);
             }
             else if (query != null){
-                list = service.getList(page, query);
+                list = service.getList(memberId,page, query);
                 count = service.getCount(query);
             }
             else{
-                list = service.getList(page);
+                list = service.getList(memberId,page);
                 count = service.getCount();
 
             }

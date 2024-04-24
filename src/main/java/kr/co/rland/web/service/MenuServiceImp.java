@@ -15,39 +15,74 @@ public class MenuServiceImp implements MenuService {
     @Autowired
     private MenuRepository repository;
 
-    private int size = 8;
+    private int size = 6;
+
+//    @Override
+//    public List<MenuView> getList(Integer page) {
+//        int offset = (page-1) * size;
+//        List<MenuView> list = repository.findAll(null, size, offset, null, null);
+//        return list;
+//    }
+//
+//    @Override
+//    public List<MenuView> getList(Integer page, Long categoryId) {
+//        int offset = (page-1) * size;
+//        List<MenuView> list = repository.findAll(null, size, offset, categoryId, null);
+//        return list;
+//    }
+//
+//    @Override
+//    public List<MenuView> getList(Integer page, String query) {
+//        int offset = (page-1) * size;
+//        List<MenuView> list = repository.findAll(null, size, offset, null, query);
+//        return list;
+//    }
+//
+//    @Override
+//    public List<MenuView> getList(Integer page, Long categoryId, String query) {
+//        int offset = (page-1) * size;
+//        List<MenuView> list = repository.findAll(null, size, offset, categoryId, query);
+//        return list;
+//    }
+//
+//    @Override
+//    public List<MenuView> getList(Integer page, Integer offset, Long categoryId, String query) {
+//
+//        List<MenuView> list = repository.findAll(null, size, offset, categoryId, query);
+//        return list;
+//    }
 
     @Override
-    public List<MenuView> getList(Integer page) {
+    public List<MenuView> getList(Long memberId,Integer page) {
         int offset = (page-1) * size;
-        List<MenuView> list = repository.findAll(size, offset, null, null);
+        List<MenuView> list = repository.findAll(memberId,size, offset, null, null);
         return list;
     }
 
     @Override
-    public List<MenuView> getList(Integer page, Long id) {
+    public List<MenuView> getList(Long memberId, Integer page, Long id) {
         int offset = (page-1) * size;
-        List<MenuView> list = repository.findAll(size, offset, id, null);
+        List<MenuView> list = repository.findAll(memberId, size, offset, id, null);
         return list;
     }
 
     @Override
-    public List<MenuView> getList(Integer page, String query) {
+    public List<MenuView> getList(Long memberId,Integer page, String query) {
         int offset = (page-1) * size;
-        List<MenuView> list = repository.findAll(size, offset, null, query);
+        List<MenuView> list = repository.findAll(memberId, size, offset, null, query);
         return list;
     }
 
     @Override
-    public List<MenuView> getList(Integer page, Long id, String query) {
+    public List<MenuView> getList(Long memberId,Integer page, Long id, String query) {
         int offset = (page-1) * size;
-        List<MenuView> list = repository.findAll(size, offset, id, query);
+        List<MenuView> list = repository.findAll(memberId, size, offset, id, query);
         return list;
     }
 
     @Override
-    public List<MenuView> getList(Integer page, Integer offset, Long id, String query) {
-        List<MenuView> list = repository.findAll(page, offset, id, query);
+    public List<MenuView> getList(Long memberId,Integer page, Integer offset, Long id, String query) {
+        List<MenuView> list = repository.findAll(memberId, page, offset, id, query);
         return list;
     }
 
