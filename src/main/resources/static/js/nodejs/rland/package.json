@@ -1,0 +1,21 @@
+{
+  "name": "rland",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index-http.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "restart": "echo \"restart specified\" && exit 1",
+    "stop": "echo \"stop specified\" && exit 1",
+    "dev": "echo \"stop specified\" && exit 1",
+    "aa": "node index-http.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^4.19.2",
+    "serve-static": "^1.15.0"
+  }
+}

@@ -300,7 +300,7 @@ window.addEventListener("load", function (){
                     <spanclass="font-weight:bold">${menu.price}</span>원
                         <span class="soldout-msg ml:auto mr:auto md:d:none">SOLD OUT</span></div>
                 <div class="img-block">
-                    <a href="detail.html?id=1"><img src="/image/menu/8.jpg"></a>
+                    <a href="detail.html?id=1"><img src="/img/8.jpg"></a>
                 </div>
                 <div class="like-block d:flex justify-content:flex-end">
                     <a class="icon icon-heart-fill icon-color:base-4" href="">좋아요</a>
