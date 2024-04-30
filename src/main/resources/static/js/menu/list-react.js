@@ -76,7 +76,7 @@ class Main extends React.Component{
                                     <div className="price-block d:flex align-items:flex-end"><span className="font-weight:bold">4,500</span>원<span className="soldout-msg ml:auto mr:auto md:d:none">SOLD OUT</span></div>
                                     <div className="img-block">
                                         <a href="detail.html?id=1">
-                                            <img src="/img/8.jpg" />
+                                            <img src="/image/menu/8.jpg" />
                                         </a>
                                     </div>
                                     <div className="like-block d:flex justify-content:flex-end">
