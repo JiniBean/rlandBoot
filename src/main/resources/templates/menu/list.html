@@ -29,10 +29,8 @@
                                 <a class="d:none md:d:inline"
                                    th:data-id=${c.id}
                                    href="?c=1"
-                                   th:href="param.q == null ? @{list(c=${c.id})} : @{list(c=${c.id}, q=${param.q})}"
-                                   th:class="${{param.c}}==${c.id} ? 'current d:none md:d:inline' : 'd:none md:d:inline' " th:text="${c.name}"
-
-                                >커피</a>
+                                   th:href="@{list(c=${c.id})}"
+                                   th:class="${{param.c}}==${c.id} ? 'current d:none md:d:inline' : 'd:none md:d:inline' " th:text="${c.name}" >커피</a>
                             </li>
                             <div></div>
 

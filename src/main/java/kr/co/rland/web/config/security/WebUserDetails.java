@@ -2,11 +2,13 @@ package kr.co.rland.web.config.security;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 
-public class WebUserDetails implements UserDetails {
+public class WebUserDetails implements UserDetails, OAuth2User {
 
     private Long id;
     private String email;
@@ -73,10 +75,32 @@ public class WebUserDetails implements UserDetails {
         this.password = password;
     }
 
+
+
+    // OAuth2 를 위한 멤버 변수
+    private Map<String, Object> attributes;
+    private String name;
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public Map<String, Object> getAttributes() {
+        return attributes;
+    }
+
     public void setAuthorities(List<GrantedAuthority> authorities) {
         this.authorities = authorities;
     }
 
-    
+    public void setAttributes(Map<String, Object> attributes) {
+        this.attributes = attributes;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
     
 }

@@ -1,7 +1,5 @@
 package kr.co.rland.web.config.security;
 
-import java.io.IOException;
-
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +7,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -18,12 +15,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
 @Configuration
 @EnableWebSecurity
@@ -31,6 +22,12 @@ public class WebSecuriryConfig {
 
     @Autowired
     private DataSource datasource;
+
+    @Autowired
+    private WebOAuth2UserDetailsService oAuth2UserDetailsService;
+
+    @Autowired
+    private LoginSuccessHandler loginSuccessHandler;
 
     // Bcrypt 암호화를 쓰겠다는 인코딩 설정
     @Bean
@@ -50,9 +47,26 @@ public class WebSecuriryConfig {
             )
             .formLogin((form) -> form
                 .loginPage("/user/signin")
-                // .successHandler(new AuthSuccessHandler())
+                 .successHandler(loginSuccessHandler)
                 .permitAll()
             )
+            // 사용자가 로그인하면 구글이 사용자 정보를 줌, 사용자 정보를 받기위한, 어떻게 쓸건지에 대한 설정
+
+            .oauth2Login(config -> config
+                    .userInfoEndpoint(userInfo->userInfo
+                            .userService(oAuth2UserDetailsService))
+                    .successHandler(loginSuccessHandler)
+            )
+//                .userService(new OAuth2UserService<OAuth2UserRequest, OAuth2User>() {
+//                                @Override// 인터페이스라 implement 필요, 구글이 주는 사용자 정보가 여기에 담김
+//                                public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
+//                                    System.out.println("=======================");
+//                                    Map<String, Object> s = userRequest.getAdditionalParameters();
+//                                    System.out.println(s.toString());
+//                                    System.out.println("=======================");
+//                                    return null;
+//                                }
+//                            })))
             .logout((logout) -> logout
                 .logoutUrl("/user/signout")
                 .logoutSuccessUrl("/index")
