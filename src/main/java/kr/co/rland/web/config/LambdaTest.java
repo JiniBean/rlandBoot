@@ -12,10 +12,10 @@ public class LambdaTest {
         
         List<Menu> list = new ArrayList<>();
 
-        list.add(Menu.builder().id(9).korName("마끼아또").price(2000).build());
-        list.add(Menu.builder().id(4).korName("크림브륄레").price(2500).build());
-        list.add(Menu.builder().id(1).korName("가나다").price(9000).build());
-        list.add(Menu.builder().id(2).korName("초코").price(3000).build());
+        list.add(Menu.builder().id(9L).korName("마끼아또").price(2000).build());
+        list.add(Menu.builder().id(4L).korName("크림브륄레").price(2500).build());
+        list.add(Menu.builder().id(1L).korName("가나다").price(9000).build());
+        list.add(Menu.builder().id(2L).korName("초코").price(3000).build());
 
         //자바에서는 함수는 무조건 클래스에 감싸져 잇어야함
 

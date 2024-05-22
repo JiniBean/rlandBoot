@@ -21,7 +21,7 @@ public interface MenuRepository {
 
     int save(Menu menu);
 
-    int update(Menu menu);
+    boolean update(Menu menu);
 
     int delete(Long id);
 }

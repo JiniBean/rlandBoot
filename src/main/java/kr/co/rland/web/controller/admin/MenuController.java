@@ -111,8 +111,8 @@ public class MenuController {
             }
         }
 
-        menu.setRegMemberId(1023);
-        menu.setCategoryId(1);
+        menu.setRegMemberId(1023L);
+        menu.setCategoryId(1L);
 //        menu.setImg(imgFile.getOriginalFilename());
         int affected = service.reg(menu, fileNames);
 

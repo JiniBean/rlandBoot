@@ -7,6 +7,9 @@ import kr.co.rland.web.entity.MenuView;
 
 
 public interface MenuService {
+
+    boolean test();
+    void test2();
 //    List<MenuView> getList(Integer page);
 //    List<MenuView> getList(Integer page, Long categoryId);
 //    List<MenuView> getList(Integer page, String query);

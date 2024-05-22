@@ -14,13 +14,13 @@ import org.springframework.web.multipart.MultipartFile;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Menu {
-    private long id;
+    private Long id;
 	private String korName;
 	private String engName;
-	private int price;
+	private Integer price;
 	private String img;
 	private String regDate;
-    private long categoryId;
-	private long regMemberId;
+    private Long categoryId;
+	private Long regMemberId;
 
 }

@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import kr.co.rland.web.entity.Menu;
 import kr.co.rland.web.entity.MenuView;
 import kr.co.rland.web.repository.MenuRepository;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class MenuServiceImp implements MenuService {
@@ -17,6 +19,31 @@ public class MenuServiceImp implements MenuService {
 
     private int size = 6;
 
+    @Override
+    @Transactional(isolation = Isolation.READ_COMMITTED)
+    public boolean test() {
+
+        Menu menu = Menu.builder().id(1378L).korName("카라멜크림치즈3").build();
+        boolean isCommit = repository.update(menu);
+        return isCommit;
+    }
+
+    @Override
+    @Transactional(isolation = Isolation.READ_COMMITTED) // 나 다읽을 때 까지 건들지마
+    public void test2() {
+
+        System.out.println("=========== test2 시작 ============");
+        Menu menu = repository.findById(1378L);
+        System.out.println("before : "+ menu.toString());
+        try {
+            Thread.sleep(15000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        Menu menu2 = repository.findById(1378L);
+        System.out.println("after : "+ menu2.toString());
+        System.out.println("=========== test2 ============");
+    }
 //    @Override
 //    public List<MenuView> getList(Integer page) {
 //        int offset = (page-1) * size;
@@ -51,6 +78,8 @@ public class MenuServiceImp implements MenuService {
 //        List<MenuView> list = repository.findAll(null, size, offset, categoryId, query);
 //        return list;
 //    }
+
+
 
     @Override
     public List<MenuView> getList(Long memberId,Integer page) {

@@ -31,6 +31,21 @@ public class MenuController {
     @Autowired
     private CategoryService categoryService;
 
+    @GetMapping("test2")
+    @ResponseBody
+    public String test2(){
+        service.test2();
+        return "5초 후에 보여줄게요";
+    }
+
+
+    @GetMapping("test")
+    @ResponseBody
+    public boolean test(){
+
+        return service.test();
+    }
+
     @GetMapping("/list-react")
     public String listReact(
             @RequestParam(name = "c", required = false) Long categoryId
