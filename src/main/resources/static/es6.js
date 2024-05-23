@@ -695,7 +695,7 @@
 //
 //     let pr = delayedPrint1("프로미스");
 //
-//     pr.then(()=>{
+//     prr.then(()=>{
 //        console.log("프로미스 성공");
 //     });
 //

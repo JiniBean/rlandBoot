@@ -20,7 +20,8 @@ public class MenuServiceImp implements MenuService {
     private int size = 6;
 
     @Override
-    @Transactional(isolation = Isolation.READ_COMMITTED)
+//    @Transactional(isolation = Isolation.READ_COMMITTED)
+    @Transactional
     public boolean test() {
 
         Menu menu = Menu.builder().id(1378L).korName("카라멜크림치즈3").build();
@@ -29,7 +30,7 @@ public class MenuServiceImp implements MenuService {
     }
 
     @Override
-    @Transactional(isolation = Isolation.READ_COMMITTED) // 나 다읽을 때 까지 건들지마
+//    @Transactional
     public void test2() {
 
         System.out.println("=========== test2 시작 ============");
